@@ -1,6 +1,6 @@
 <html>
 <body bgcolor="#b3ecff">
-	<form action="register" method="post">
+	<form action="add/register" method="post">
 		<table border="4">
 			<tr>
 				<td colspan="2" align="center">ADD STUDENT FORM</td>

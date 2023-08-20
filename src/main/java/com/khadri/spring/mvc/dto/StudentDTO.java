@@ -2,6 +2,7 @@ package com.khadri.spring.mvc.dto;
 
 public class StudentDTO {
 
+	private Integer id;
 	private String name;
 	private String age;
 	private String branch;
@@ -9,6 +10,14 @@ public class StudentDTO {
 	private String address;
 	private String parentPhone;
 
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

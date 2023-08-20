@@ -5,10 +5,10 @@
 			<td colspan="2" align="center"> <a href="addpage">Add Student</a></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"> <a href="./register?mode=VIEW">Modify Student</a></td>
+			<td colspan="2" align="center"> <a href="view/all/registers">Modify Student</a></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"> <a href="view_student.jsp">View Student</a></td>
+			<td colspan="2" align="center"> <a href="viewpage">View Student</a></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center"> <a href="./register?mode=DELETE">Delete Student</a></td>
