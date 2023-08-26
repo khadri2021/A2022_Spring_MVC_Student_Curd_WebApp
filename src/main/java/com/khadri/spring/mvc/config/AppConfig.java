@@ -17,7 +17,7 @@ public class AppConfig {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-	
+
 	@Bean
 	public ModelAndView modelAndView() {
 		return new ModelAndView();

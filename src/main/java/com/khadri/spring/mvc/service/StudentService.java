@@ -63,10 +63,11 @@ public class StudentService {
 
 		return listOfStudentsDto;
 	}
+
 	public StudentDTO getStudent(Integer id) {
-		
+
 		Student foundStudent = studentDao.readStudent(id);
-		
+
 		Function<Student, StudentDTO> convertEntityToDto = (student) -> {
 			StudentDTO dto = new StudentDTO();
 			dto.setId(student.getId());
@@ -78,13 +79,18 @@ public class StudentService {
 			dto.setPhone(student.getPhone());
 			return dto;
 		};
-		
-		 StudentDTO studentDTO =  Optional.ofNullable(foundStudent).stream().map(convertEntityToDto).findFirst().get();
-		
+
+		StudentDTO studentDTO = Optional.ofNullable(foundStudent).stream().map(convertEntityToDto).findFirst().get();
+
 		return studentDTO;
 	}
-	
-	
+
+	public void deleteStudent(Integer id) {
+
+		studentDao.deleteStudent(id);
+
+	}
+
 	public void modifyStudent(StudentDTO studentDTO) {
 
 		Function<StudentDTO, Student> convertDtoToEntity = (dto) -> {

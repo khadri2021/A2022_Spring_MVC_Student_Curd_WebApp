@@ -1,7 +1,6 @@
 package com.khadri.spring.mvc.jdbc.connection;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;

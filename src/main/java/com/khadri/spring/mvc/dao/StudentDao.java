@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.khadri.spring.mvc.entity.Student;
 import com.khadri.spring.mvc.jdbc.connection.JdbcConnection;
 
-@Component
+@Repository
 public class StudentDao {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class StudentDao {
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, student.getId());
-			ps.setString(2, student.getAddress());
+			ps.setString(3, student.getAddress());
 			ps.setInt(3, Integer.parseInt(student.getAge()));
 			ps.setString(4, student.getBranch());
 			ps.setString(5, student.getName());
@@ -42,7 +42,7 @@ public class StudentDao {
 			System.out.println(result + " Rows Inserted Successfully");
 
 		} catch (SQLException e) {
-			System.out.println("Exception Occured " + e.getMessage());
+			System.out.println("Exception Occured " + e);
 		}
 
 	}
@@ -84,25 +84,24 @@ public class StudentDao {
 
 		} catch (SQLException e) {
 			System.out.println("Exception Occured " + e.getMessage());
-		}
+		} 
 
 		return allStudents;
 	}
-	// read  student record by id
+
+	// read student record by id
 	public Student readStudent(Integer Id) {
 		System.out.println("Entered into StudentDao : readStudent(-)");
 		Connection con = jdbcConnection.createConnection();
-		
-		String sql = "select * from student_register where STUD_ID="+Id;
+
+		String sql = "select * from student_register where STUD_ID=" + Id;
 		Student std = new Student();
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery(sql);
-			
+
 			while (resultSet.next()) {
-				
-				
-				
+
 				int stdId = resultSet.getInt(1);
 				String address = resultSet.getString(2);
 				int age = resultSet.getInt(3);
@@ -110,7 +109,7 @@ public class StudentDao {
 				String name = resultSet.getString(5);
 				int parentPhone = resultSet.getInt(6);
 				int phone = resultSet.getInt(7);
-				
+
 				std.setId(stdId);
 				std.setAddress(address);
 				std.setAge(String.valueOf(age));
@@ -118,15 +117,32 @@ public class StudentDao {
 				std.setName(name);
 				std.setParentPhone(String.valueOf(parentPhone));
 				std.setPhone(String.valueOf(phone));
-				
-				
+
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println("Exception Occured " + e.getMessage());
 		}
-		
+
 		return std;
+	}
+
+	// delete student record by id
+	public void deleteStudent(Integer Id) {
+		System.out.println("Entered into StudentDao : deleteStudent(-)");
+		Connection con = jdbcConnection.createConnection();
+
+		String sql = "delete from student_register where STUD_ID=" + Id;
+		try {
+			Statement stmt = con.createStatement();
+			int executeUpdate = stmt.executeUpdate(sql);
+
+			System.out.println(executeUpdate + " Record deleted ");
+
+		} catch (SQLException e) {
+			System.out.println("Exception Occured " + e.getMessage());
+		}
+
 	}
 
 	// modify student record

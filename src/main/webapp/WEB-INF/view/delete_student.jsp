@@ -4,23 +4,17 @@
 <html>
 <script type="text/javascript">
 
-function ajaxEditForm(rowCount){
+function ajaxDeleteForm(rowCount){
 	//alert('ajax Invoking '+rowCount);
-	var studentId= document.getElementById('stdid'+rowCount).value;
-	var studentName= document.getElementById('stdname'+rowCount).value;
-	var studentAge= document.getElementById('stdage'+rowCount).value;
-	var studentBranch= document.getElementById('stdbranch'+rowCount).value;
-	var studentPhone= document.getElementById('stdphone'+rowCount).value;
-	var studentParentPhone= document.getElementById('stdpphone'+rowCount).value;
-	var studentAddress= document.getElementById('stdadd'+rowCount).value;
+	var studentId= document.getElementById('stdid'+rowCount).value; 
 	
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
-	      alert("Update Successfully");
+	      alert("Deleted Successfully");
 	    }
 	  };
-	  xhttp.open("POST", "../../modify/register?sId="+studentId+"&sName="+studentName+"&sAge="+studentAge+"&sBranch="+studentBranch+"&sPhone="+studentPhone+"&sAddress="+studentAddress+"&sParentPhone="+studentParentPhone, true);
+	  xhttp.open("POST", "../../delete/register?sId="+studentId, true);
 	  xhttp.send();
 	
 }
@@ -28,19 +22,20 @@ function ajaxEditForm(rowCount){
 
 <body bgcolor="#ffff99">
 	<%
-	List<StudentForm> listOfStudents = (List<StudentForm>) request.getAttribute("edit_result");
+	List<StudentForm> listOfStudents = (List<StudentForm>) request
+			.getAttribute("delete_result");
 	%>
 
 	<form action="">
-	 
-		<table bgcolor="#99ff99">
+	</table>
+			<table bgcolor="#99ff99">
 			<tr>
 				<td colspan="2" align="center"><a href="../../adminpage">Go To</a> previous page</td>
 			</tr>
 		</table>
 		<table border="4" id="mydata">
 			<tr>
-				<td colspan="7" align="center">MODIFY STUDENT FORM</td>
+				<td colspan="8" align="center">DELETE STUDENT FORM</td>
 			</tr>
 
 			<tr>
@@ -62,20 +57,20 @@ function ajaxEditForm(rowCount){
 				<td><input type="text" id="stdid<%=inc%>"
 					value="<%=student.getsId()%>" disabled="disabled"></td>
 				<td><input type="text" id="stdname<%=inc%>"
-					value="<%=student.getsName()%>"></td>
+					value="<%=student.getsName()%>" disabled="disabled"></td>
 				<td><input type="text" id="stdage<%=inc%>"
-					value="<%=student.getsAge()%>"></td>
+					value="<%=student.getsAge()%>" disabled="disabled"></td>
 				<td><input type="text" id="stdbranch<%=inc%>"
-					value="<%=student.getsBranch()%>"></td>
+					value="<%=student.getsBranch()%>" disabled="disabled"></td>
 				<td><input type="text" id="stdphone<%=inc%>"
-					value="<%=student.getsPhone()%>"></td>
+					value="<%=student.getsPhone()%>" disabled="disabled"></td>
 				<td><input type="text" id="stdpphone<%=inc%>"
-					value="<%=student.getsParentPhone()%>"></td>
+					value="<%=student.getsParentPhone()%>" disabled="disabled"></td>
 				<td><input type="text" id="stdadd<%=inc%>"
-					value="<%=student.getsAddress()%>"></td>
+					value="<%=student.getsAddress()%>" disabled="disabled"></td>
 
-				<td><input type="button" value="MODIFY RECORD"
-					onclick="ajaxEditForm(<%=inc%>)"></td>
+				<td><input type="button" value="DELETE RECORD"
+					onclick="ajaxDeleteForm(<%=inc%>)"></td>
 			</tr>
 
 			<%
@@ -83,12 +78,10 @@ function ajaxEditForm(rowCount){
 			}
 			%>
 
-			<input type="hidden" name="mode" value="EDIT">
-
-
 		</table>
-	 
-		<table bgcolor="#99ff99">
+		
+		</table>
+			<table bgcolor="#99ff99">
 			<tr>
 				<td colspan="2" align="center"><a href="../../adminpage">Go To</a> previous page</td>
 			</tr>

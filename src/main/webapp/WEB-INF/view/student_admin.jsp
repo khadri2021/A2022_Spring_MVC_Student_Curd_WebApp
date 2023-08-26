@@ -11,7 +11,7 @@
 			<td colspan="2" align="center"> <a href="viewpage">View Student</a></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"> <a href="./register?mode=DELETE">Delete Student</a></td>
+			<td colspan="2" align="center"> <a href="delete/all/registers">Delete Student</a></td>
 		</tr>
 	</table>
 </body>

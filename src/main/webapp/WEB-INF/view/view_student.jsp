@@ -3,29 +3,12 @@
 
 <html>
 <script type="text/javascript">
-
-// function ajaxSearchForm(){
-// 	var studentId= document.getElementById('stdid').value;
-	 	
-// 	var xhttp = new XMLHttpRequest();
-// 	  xhttp.onreadystatechange = function() {
-// 	    if (this.readyState == 4 && this.status == 200) {
-// 	     // alert("Search Successfully");
-// 	    }
-// 	  };
-// 	  xhttp.open("POST", "register?mode=SEARCH&sId="+studentId, true);
-// 	  xhttp.send();
-	 
-// }
-
-
 </script>
 <body bgcolor="#80ffff">
 	<form action="view/register">
-	</table>
-			<table bgcolor="#99ff99">
+		 <table bgcolor="#99ff99">
 			<tr>
-				<td colspan="2" align="center"><a href="student_admin.jsp">Go To</a> previous page</td>
+				<td colspan="2" align="center"><a href="../adminpage">Go To</a> previous page</td>
 			</tr>
 		</table>
 		<table border="4">
@@ -84,9 +67,9 @@
 			<%} %>
 				
 		</table>
-			<table bgcolor="#99ff99">
+		 <table bgcolor="#99ff99">
 			<tr>
-				<td colspan="2" align="center"><a href="student_admin.jsp">Go To</a> previous page</td>
+				<td colspan="2" align="center"><a href="../adminpage">Go To</a> previous page</td>
 			</tr>
 		</table>
 

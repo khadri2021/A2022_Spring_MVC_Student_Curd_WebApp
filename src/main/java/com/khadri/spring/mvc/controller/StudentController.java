@@ -37,12 +37,12 @@ public class StudentController {
 	public String addStudentPage() {
 		return "add_student";
 	}
-	
+
 	@GetMapping("/viewpage")
 	public String viewStudentPage() {
 		return "view_student";
 	}
-	
+
 	@PostMapping("/add/register")
 	@ResponseBody
 	public String addStudentForm(StudentForm studentForm) {
@@ -83,19 +83,20 @@ public class StudentController {
 			return form;
 		};
 
-		List<StudentForm> allStudents = listOfStudentsDto.stream().map(convertfromDtoToForm).collect(Collectors.toList());
+		List<StudentForm> allStudents = listOfStudentsDto.stream().map(convertfromDtoToForm)
+				.collect(Collectors.toList());
 
 		modelAndView.addObject("edit_result", allStudents);
 		modelAndView.setViewName("modify_student");
 
 		return modelAndView;
 	}
-	
-	@GetMapping("/view/register")
-	public ModelAndView viewStudentForm(@RequestParam("stdid") Integer id) {
-		
-		StudentDTO foundStudentsDto = studentService.getStudent(id);
-		
+
+	@GetMapping("/delete/all/registers")
+	public ModelAndView deleteStudentForms() {
+
+		List<StudentDTO> listOfStudentsDto = studentService.getAllStudents();
+
 		Function<StudentDTO, StudentForm> convertfromDtoToForm = (dto) -> {
 			StudentForm form = new StudentForm();
 			form.setsId(dto.getId());
@@ -107,17 +108,42 @@ public class StudentController {
 			form.setsPhone(dto.getPhone());
 			return form;
 		};
-		
-		 StudentForm studentForm = Optional.ofNullable(foundStudentsDto).stream().map(convertfromDtoToForm).findFirst().get();
-		
-		modelAndView.addObject("search_result", studentForm);
-		modelAndView.setViewName("view_student");
-		
+
+		List<StudentForm> allStudents = listOfStudentsDto.stream().map(convertfromDtoToForm)
+				.collect(Collectors.toList());
+
+		modelAndView.addObject("delete_result", allStudents);
+		modelAndView.setViewName("delete_student");
+
 		return modelAndView;
 	}
-	
-	
-	
+
+	@GetMapping("/view/register")
+	public ModelAndView viewStudentForm(@RequestParam("stdid") Integer id) {
+
+		StudentDTO foundStudentsDto = studentService.getStudent(id);
+
+		Function<StudentDTO, StudentForm> convertfromDtoToForm = (dto) -> {
+			StudentForm form = new StudentForm();
+			form.setsId(dto.getId());
+			form.setsAddress(dto.getAddress());
+			form.setsAge(dto.getAge());
+			form.setsName(dto.getName());
+			form.setsBranch(dto.getBranch());
+			form.setsParentPhone(dto.getParentPhone());
+			form.setsPhone(dto.getPhone());
+			return form;
+		};
+
+		StudentForm studentForm = Optional.ofNullable(foundStudentsDto).stream().map(convertfromDtoToForm).findFirst()
+				.get();
+
+		modelAndView.addObject("search_result", studentForm);
+		modelAndView.setViewName("view_student");
+
+		return modelAndView;
+	}
+
 	@PostMapping("/modify/register")
 	@ResponseBody
 	public String modifyStudentForm(StudentForm studentForm) {
@@ -141,8 +167,13 @@ public class StudentController {
 
 		return "updated record!!!";
 	}
-	
-	
-	
+
+	@PostMapping("/delete/register")
+	@ResponseBody
+	public String deleteStudentForm(@RequestParam("sId") Integer id) {
+		studentService.deleteStudent(id);
+
+		return "deleted record!!!";
+	}
 
 }
