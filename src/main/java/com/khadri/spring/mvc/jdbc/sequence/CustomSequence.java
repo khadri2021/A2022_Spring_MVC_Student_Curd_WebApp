@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.khadri.spring.mvc.jdbc.connection.JdbcConnection;
@@ -13,25 +14,18 @@ import com.khadri.spring.mvc.jdbc.connection.JdbcConnection;
 @Component
 public class CustomSequence {
 
+//	@Autowired
+//	JdbcConnection jdbcConnection;
+	
 	@Autowired
-	JdbcConnection jdbcConnection;
+	private JdbcTemplate jdbcTemplate;
 
 	public Integer getSequence() {
-		Integer seq = null;
-
-		Connection con = jdbcConnection.createConnection();
-
-		try {
-			Statement stmt = con.createStatement();
-			ResultSet result = stmt.executeQuery("select max(STUD_ID) from student_register");
-			if (result.next()) {
-				seq = result.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	 
+		String sql = "select max(STUD_ID) from student_register";
+		Integer seq = jdbcTemplate.queryForObject(sql, Integer.class);
 		System.out.println("Exiting Seq "+seq);
+		
 		return seq +1;
 
 	}

@@ -84,7 +84,7 @@ public class StudentDao {
 
 		} catch (SQLException e) {
 			System.out.println("Exception Occured " + e.getMessage());
-		} 
+		} 	
 
 		return allStudents;
 	}

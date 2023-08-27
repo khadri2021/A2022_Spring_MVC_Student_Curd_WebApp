@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.khadri.spring.mvc.dao.StudentDao;
+import com.khadri.spring.mvc.dao.StudentSpringDao;
 import com.khadri.spring.mvc.dto.StudentDTO;
 import com.khadri.spring.mvc.entity.Student;
 import com.khadri.spring.mvc.jdbc.sequence.CustomSequence;
@@ -16,11 +17,15 @@ import com.khadri.spring.mvc.jdbc.sequence.CustomSequence;
 @Service
 public class StudentService {
 
+//	@Autowired
+//	private StudentDao studentDao;
+	
 	@Autowired
-	private StudentDao studentDao;
+	private StudentSpringDao studentSpringDao;
 
 	@Autowired
 	private CustomSequence customSequence;
+ 
 
 	public void addStudent(StudentDTO studentDTO) {
 
@@ -39,12 +44,16 @@ public class StudentService {
 
 		Student student = Optional.ofNullable(studentDTO).stream().map(convertDtoToEntity).findFirst().get();
 
-		studentDao.insertStudent(student);
+//		studentDao.insertStudent(student); 
+		
+		
+		studentSpringDao.insertStudent(student);
 	}
 
 	public List<StudentDTO> getAllStudents() {
 
-		List<Student> listOfStudents = studentDao.readAllStudents();
+//		List<Student> listOfStudents = studentDao.readAllStudents();
+		List<Student> listOfStudents = studentSpringDao.readAllStudents();
 
 		Function<Student, StudentDTO> convertEntityToDto = (student) -> {
 			StudentDTO dto = new StudentDTO();
@@ -66,7 +75,8 @@ public class StudentService {
 
 	public StudentDTO getStudent(Integer id) {
 
-		Student foundStudent = studentDao.readStudent(id);
+//		Student foundStudent = studentDao.readStudent(id);
+		Student foundStudent = studentSpringDao.readStudent(id);
 
 		Function<Student, StudentDTO> convertEntityToDto = (student) -> {
 			StudentDTO dto = new StudentDTO();
@@ -87,7 +97,8 @@ public class StudentService {
 
 	public void deleteStudent(Integer id) {
 
-		studentDao.deleteStudent(id);
+		//studentDao.deleteStudent(id);
+		studentSpringDao.deleteStudent(id);
 
 	}
 
@@ -107,7 +118,8 @@ public class StudentService {
 
 		Student student = Optional.ofNullable(studentDTO).stream().map(convertDtoToEntity).findFirst().get();
 
-		studentDao.modifyStudent(student);
+//		studentDao.modifyStudent(student);
+		studentSpringDao.modifyStudent(student);
 	}
 
 }
